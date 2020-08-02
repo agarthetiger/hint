@@ -1,5 +1,11 @@
-# hint
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
+layout: default
+title: Home
+permalink: /
+---
 Hint exists to get help on commands from the command line, without switching context or applications. 
 
 ## Project status
@@ -33,30 +39,9 @@ I use GitHub Pages and MKDocs to collect notes and technical information which I
 
 Often I'm using a terminal within PyCharm or VS Code and it's undesirable to switch context to a different application, navigate to a site which may not be open, get the right page and click or scroll to the relevant section. It's not an insurmountable problem, but a workflow which I wanted to optimise. 
 
-This tool was inspired in multiple ways by Thomas Stringer's post on [My Personal Wiki … Now Through the Terminal](https://medium.com/@trstringer/my-personal-wiki-now-through-the-terminal-689794e07b42). The fact that I stumbled across this while searching for something else is validation for having a tool and workflow which enables me to remain in the IDE and not switch to a browser. It's similar to taking an alcoholic to a pub and constantly offering them a drink, then saying it's his fault if he ends up drinking. Sure, there is some level of personal responsibility with the alcoholic to resist but a better solution would be to avoid the pub.
+This tool was inspired in multiple ways by Thomas Stringer's post on [My Personal Wiki … Now Through the Terminal](https://medium.com/@trstringer/my-personal-wiki-now-through-the-terminal-689794e07b42). The fact that I stumbled across this while searching for something else is validation for having a tool and workflow which enables me to remain in the IDE and not switch to a browser. It's similar to taking an alcoholic to a pub and constantly offering them a drink, then saying it's his fault if he ends up drinking. Sure, there is some level of personal responsibility with the alcoholic to resist but a better solution would be to avoid the pub. I want to avoid switching to my browser and all it's associated tabs. I even want to avoid having to switch past other open applications which may also have work pending. I just want the right content delivered to the right place at the right time, and this is what I aim to achieve with hint.
 
 ## Backlog of ideas for improvement
 
-* Load configuration from file (ie. ~/.hintrc)
-* Configurable url, repo, branch and folder
-* More Ansi color output for markdown elements (bold, italic, lists, etc)
-* Improved formatting for console output not markdown
-* Tab completion for subsections, based on fetching and parsing the markdown document
-* Caching the pages locally for faster execution
-* Use a local file path for offline mode
-* Add commands to add free text to the repo using GitHub auth token
-* Add a command to add the previous command (using !! ?) To a specified section of a markdown document.
-* Index commands and provide mechanism to run an indexed command
-* Prompt for variable substitution when running indexed commands with mandatory configurable parameters.
-* Add a comment to the added commands (ie update an existing line)
-* Only use Python3 standard library modules
-* Launch GitHub webpage for topic in browser
-* Configure alternate webpage to launch MKDocs site
-* Support other cloud VCS
-* Automated build with TravisCI or CircleCI
-* Automated publish on merge to trunk
-* Extract markdown parsing code into separate python package
-* Add unit tests
-* Add automated semantic versioning based on commit/PR messages
-* If the topic matches an executable on the local system, also print the version information from it as well as the hint text
-* Grey-out commands which have a minimum version which is higher than the locally installed tool
+Err, it's vast. My ability to dream up cool things I could add to hint easily outstrips my free time to implement them. The ones I think are worthy of at least writing down will end up on the [project page](https://github.com/agarthetiger/hint/projects/1).
+
