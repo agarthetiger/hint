@@ -1,10 +1,16 @@
+import configparser
+import os
+import sys
+
 import click
+from pathlib import Path
 import re
 import requests
 
 
-RAW_REPO_URL = "https://raw.githubusercontent.com/agarthetiger/mkdocs/master/docs/hints/"
+RAW_REPO_URL = "https://raw.githubusercontent.com/"
 RE_COMMAND = re.compile(r"`(?P<command>.*?)`")
+CONFIG_FILE = f"{str(Path.home())}/.hintrc"
 
 # See available colours listed under click.Style on
 # https://click.palletsprojects.com/en/7.x/api/#utilities
@@ -12,8 +18,8 @@ TITLE_COLOUR = "cyan"
 COMMAND_COLOUR = "blue"
 
 
-def get_hint_text(topic):
-    r = requests.get(f"{RAW_REPO_URL}/{topic}.md")
+def get_hint_text(url, topic):
+    r = requests.get(f"{url}/{topic}.md")
     r.raise_for_status()
     return r.text
 
@@ -104,12 +110,45 @@ def get_display_text(hint_text, subsections):
             return hint_text
 
 
+def create_config():
+    config = configparser.ConfigParser()
+    try:
+        with open(CONFIG_FILE, 'w') as configfile:
+            config['hint'] = {}
+            config['hint']['url'] = input("URL for the hint source:")
+            config.write(configfile)
+    except IOError:
+        print(f"Cannot create config file {CONFIG_FILE}")
+        sys.exit(1)
+    return config
+
+
+def validate_config(config):
+    # TODO add code to validate the expected configuration here
+    pass
+
+
+def get_config():
+    if os.path.isfile(CONFIG_FILE):
+        # Read in the config file if it exists
+        config = configparser.ConfigParser()
+        config.read(CONFIG_FILE)
+    else:
+        # otherwise create a config file
+        config = create_config()
+
+    validate_config(config)
+    return config
+
+
 @click.command()
 @click.argument('topic')
 @click.argument('subsections', nargs=-1)
 def cli(topic, subsections):
+    config = get_config()
+
     try:
-        hint_text = get_hint_text(topic)
+        hint_text = get_hint_text(url=config['hint']['url'], topic=topic)
     except requests.exceptions.HTTPError as httpe:
         err_msg = f"Could not find remote file for topic '{topic}', " \
                   f"{httpe.response.status_code}, {httpe.request.url}"
