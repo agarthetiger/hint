@@ -14,15 +14,20 @@ Recommended installation method is with [pipx](https://pipxproject.github.io/pip
 
 ## Usage
 
-The first time you run `hint <topic>` it will prompt for a url for the hint source. Use `https://raw.githubusercontent.com/agarthetiger/hint/master/docs/examples/` as an example. It is expected that you will create your own content and add your own url later. The only topic in the example repo is `bash`. 
+The first time you run `hint <topic>` it will prompt for configuration values for the following:
 
-* `hint bash` - Display the formatted contents of https://raw.githubusercontent.com/agarthetiger/hint/master/docs/examples/bash.md 
+* URL for the hint source - Use `https://raw.githubusercontent.com/agarthetiger/hint/trunk/docs/examples/` as an example. It is expected that you will create your own content and add your own url later. The only topic in the example repo is `bash`. Note that this url is the raw url to view just the file contents.
+* Personal Auth Token - Enter a GitHub personal auth token if your hints are in a private GitHub repository, otherwise leave blank. 
+
+Then run `hint <topic>` where topic is the name of the markdown file in the repository without the .md file extension.
+
+* `hint bash` - Display the formatted contents of https://raw.githubusercontent.com/agarthetiger/hint/trunk/docs/examples/bash.md 
 * `hint bash curl` - Display only the `curl` subsection from the bash.md file. Valid subsections are any level headings in the markdown document. 
 * `hint --help` - Get help
 
 ## Details
 
-For the first POC this cli will pull information from GitHub from a fixed repository, branch and folder and display the contents on the command line. The markdown will be structured using headings which can also be specified. 
+For the first POC this cli will pull information from GitHub from a configurable location and display the contents on the command line. The markdown will be structured using headings which can also be specified. 
 
 `hint` is written for you to create your own content, for whatever useful information you would like to access from the command line. It is expected that you will setup your own repository with your own hints.    
 

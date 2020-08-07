@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hint-cli"
-version = "0.0.1"
+version = "0.3.1"
 description = "Hint exists to get help on commands from the command line, without switching context or applications."
 authors = ["Andrew Garner"]
 license = "MIT"

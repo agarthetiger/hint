@@ -18,8 +18,9 @@ TITLE_COLOUR = "cyan"
 COMMAND_COLOUR = "blue"
 
 
-def get_hint_text(url, topic):
-    r = requests.get(f"{url}/{topic}.md")
+def get_hint_text(url, topic, token=None):
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    r = requests.get(f"{url}/{topic}.md", headers=headers)
     r.raise_for_status()
     return r.text
 
@@ -116,6 +117,8 @@ def create_config():
         with open(CONFIG_FILE, 'w') as configfile:
             config['hint'] = {}
             config['hint']['url'] = input("URL for the hint source:")
+            config['hint']['token'] = input(
+                "Personal Auth Token for private repos:")
             config.write(configfile)
     except IOError:
         print(f"Cannot create config file {CONFIG_FILE}")
@@ -148,7 +151,9 @@ def cli(topic, subsections):
     config = get_config()
 
     try:
-        hint_text = get_hint_text(url=config['hint']['url'], topic=topic)
+        hint_text = get_hint_text(url=config['hint']['url'],
+                                  topic=topic,
+                                  token=config['hint'].get('token'))
     except requests.exceptions.HTTPError as httpe:
         err_msg = f"Could not find remote file for topic '{topic}', " \
                   f"{httpe.response.status_code}, {httpe.request.url}"
