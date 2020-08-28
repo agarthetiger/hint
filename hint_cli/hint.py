@@ -1,3 +1,4 @@
+import subprocess
 import click
 
 from hint_cli import repo
@@ -51,11 +52,21 @@ def get_hint_text(git_repo, topic):
     return text
 
 
+def edit_hint(topic):
+    subprocess.run(['vim', f"{repo.LOCAL_PATH}/{topic}.md"])
+
+
 @click.command()
+@click.option('-e', '--edit', is_flag=True)
 @click.argument('topic')
 @click.argument('subsections', nargs=-1)
-def cli(topic, subsections):
+@click.version_option()
+def cli(edit, topic, subsections):
     conf = get_config()
-    hint_text = get_hint_text(repo=conf['hint']['repo'], topic=topic)
-    display_text = get_display_text(hint_text, subsections)
-    print_hint_text(display_text)
+    if edit:
+        edit_hint(topic=topic)
+        repo.push_all_changes()
+    else:
+        hint_text = get_hint_text(git_repo=conf['hint']['repo'], topic=topic)
+        display_text = get_display_text(hint_text, subsections)
+        print_hint_text(display_text)

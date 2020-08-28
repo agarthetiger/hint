@@ -4,6 +4,7 @@ Module for working with remote (git) repositories using GitPython
 See https://www.devdungeon.com/content/working-git-repositories-python
 """
 import os
+import socket
 from pathlib import Path
 
 import click
@@ -41,6 +42,16 @@ def get_repo(remote_repo, local_path=LOCAL_PATH, update=True):
     return local_path
 
 
+def push_all_changes():
+    repo = git.Repo(LOCAL_PATH)
+    if repo.is_dirty(untracked_files=True):
+        click.echo(message=f'Changes detected in {LOCAL_PATH}')
+        diff = repo.git.diff(repo.head.commit)
+        repo.git.add(all=True)
+        repo.index.commit(f'Update from {socket.gethostname()}')
+        repo.remotes.origin.push()
+
+
 if __name__ == "__main__":
-    repo = get_repo('git@github.com:agarthetiger/hints.git')
-    print(str(repo))
+    r = get_repo('git@github.com:agarthetiger/hints.git')
+    print(str(r))

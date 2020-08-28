@@ -16,17 +16,19 @@ Recommended installation method is with [pipx](https://pipxproject.github.io/pip
 
 The first time you run `hint <topic>` it will prompt for configuration values for the following:
 
-* Git repository for the hint source - Address of the remote repository to clone containing your hint content. Use the sample repo from GitHub of `git@github.com:agarthetiger/hint-cli-samples.git` to get started. It is expected that you will create your own content and configure your own repo later. The only topic in the example repo is `bash`. Note that while both the ssh and https clone addresses will work to view content, much of the functionality to add and modify content will require the ssh style repo address. 
+* Repository for the hint source - Address of the remote git repository to clone containing your hint content. Use the sample repo from GitHub of `git@github.com:agarthetiger/hint-cli-samples.git` to get started. It is expected that you will create your own content and configure your own repo later. The only topic in the example repo is `bash`. Note that while both the ssh and https clone addresses will work to view content, all functionality to add and modify content will require the ssh style repo address. 
 
 Then run `hint <topic>` where topic is the name of a markdown file in the repository root, without the .md file extension.
 
 * `hint bash` - Display the formatted contents of https://raw.githubusercontent.com/agarthetiger/hint/trunk/docs/examples/bash.md 
 * `hint bash curl` - Display only the `curl` subsection from the bash.md file. Valid subsections are any level headings in the markdown document. To display only an H4 subsection, just use the H4 heading text as the 2nd argument. 
+* `hint --edit bash` - Edit the file bash.md using vim. This requires vim to be installed, the repo to be cloned using ssh, ssh key based authentication to github.com configured for the current user and no restrictions on pushing to the default branch. After an edit, all changes in the locally cloned repository will be added, committed to the local clone and then pushed to GitHub.  
 * `hint --help` - Get help
+* `hint --version` - Print the version of hint-cli
 
 ## Upgrading
 
-This project is still in an unstable state and minor version bumps may be breaking until 1.0.0 is released. When upgrading I recommend deleting the config file `~/.hintrc` before running the new version, so that the correct config options are set.
+This project is still in an alpha state and as such any version bumps may be breaking until 1.0.0 is released. When upgrading versions prior to v1.0.0 I recommend deleting the config file `~/.hintrc` before running the new version, so that the correct config options are set.
 
 From 1.0.0 onwards, releases will be versioned semantically according to [semver.org 2.0.0](https://semver.org/).
 
@@ -40,18 +42,20 @@ The repository is expected to contain markdown files with a .md file extension i
 * Text surrounded by \` characters is displayed in bold and blue.
 * All other text is displayed as typed in the markdown file.
 
+Once a repo has been setup and cloned via ssh from GitHub, new pages can be created by running `hint --edit TOPIC` where TOPIC is the name of the file to create. The extension `.md` will be added to the repo automatically and the new file pushed to GitHub after saving and exiting vim. 
+
 ## Switching hint repositories
 
-Version 0.4.0 changes from using requests to using GitPython to clone the remote repository for the hint content. If you are using >=0.4.0 and want to change the remote repository, update the value for `repo` in `~/.hintrc` and delete the folder `~/.hints.d/hints` before running hint again.   
+Version 0.4.0 changes from using requests to query content directly from GitHub.com to using GitPython to clone the remote repository for the hint content. If you are using hint-cli >=v0.4.0 and want to change the remote repository, update the value for `repo` in `~/.hintrc` and delete the folder `~/.hints.d/hints` before running hint again.   
 
 ## Alternatives
 
-If you want a tool which pulls community content rather than writing your own, look at [cheat.sh](https://github.com/chubin/cheat.sh). It provides "unified access to the best community driven cheat sheets repositories of the world".  
+If you want a tool which pulls community content rather than writing your own, look at [cheat.sh](https://github.com/chubin/cheat.sh). It provides "unified access to the best community driven cheat sheets repositories of the world". Another tool worth looking at is [How Do I](https://blog.gleitzman.com/post/43330157197/howdoi-instant-coding-answers-via-the-command), with a question and answer format also from the command line.  
 
 ## System Requirements
 
-* Python3
-* Pip3
+* Python >= 3.7
+* Pip
 * Access to pypi.org or another pip repo with the `hint-cli` python package and dependencies
 * Network access to the hints git repository. This may be internet access to GitHub.com but could also be an internal Git server.
 
