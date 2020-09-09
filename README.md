@@ -48,9 +48,30 @@ Once a repo has been setup and cloned via ssh from GitHub, new pages can be crea
 
 Version 0.4.0 changes from using requests to query content directly from GitHub.com to using GitPython to clone the remote repository for the hint content. If you are using hint-cli >=v0.4.0 and want to change the remote repository, update the value for `repo` in `~/.hintrc` and delete the folder `~/.hints.d/hints` before running hint again.   
 
-## Alternatives
+## Alternatives and comparisons
 
-If you want a tool which pulls community content rather than writing your own, look at [cheat.sh](https://github.com/chubin/cheat.sh). It provides "unified access to the best community driven cheat sheets repositories of the world". Another tool worth looking at is [How Do I](https://blog.gleitzman.com/post/43330157197/howdoi-instant-coding-answers-via-the-command), with a question and answer format also from the command line.  
+If you want a tool which pulls community content rather than writing your own, look at [cheat.sh](https://github.com/chubin/cheat.sh). It provides "unified access to the best community driven cheat sheets repositories of the world". 
+
+Another tool worth looking at is [How Do I](https://blog.gleitzman.com/post/43330157197/howdoi-instant-coding-answers-via-the-command), with a question and answer format also from the command line.  
+
+[Term Cheat](https://github.com/select/term-cheat) is quite a similar tool, with one big list but in a text-based UI which supports searching for the command you want. 
+
+[eg](https://github.com/srsudar/eg) is another great tool with a lot of overlap with hint (and more maturity for sure). It has colourised output, a mix of pre-existing community content as well as the option to add your own examples, and a host of configuration possibilities. 
+
+[cheat](https://github.com/cheat/cheat) has a wonderful amount of community content ready to go.
+
+
+Why does hint exist when there are all these other great tools?
+
+* I want to curate my own content. Specifically I don't necessarily want a community-chosen example/answer and I don't want to have to justify what I want as an example in a PR. 
+* I wanted to be able to access my content from any machine with an internet connection, including but not limited to my work laptop, personal laptop, home lab Raspberry Pi hosts, etc. 
+* I want to add features I didn't see in any individual existing tool. I have seen almost everything implemented across all the alternative tools out there, and cherry-picked some features for use in hint. Thank you all open-source authors for sharing your ideas. 
+* I wanted to format the examples on the command line in a specific manner.
+
+... and for completeness,
+ 
+* When I started this I didn't know some of them existed. 
+* I wanted to write this myself as a project to continue to learn python so I would have done it anyway. 
 
 ## System Requirements
 

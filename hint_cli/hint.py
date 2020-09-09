@@ -36,16 +36,6 @@ def get_display_text(hint_text, subsections):
 
 
 def get_hint_text(git_repo, topic):
-    # try:
-    #     headers = {"Authorization": f"Bearer {token}"} if token else {}
-    #     r = requests.get(f"{url}/{topic}.md", headers=headers)
-    #     r.raise_for_status()
-    #     return r.text
-    # except requests.exceptions.HTTPError as httpe:
-    #     err_msg = f"Could not find remote file for topic '{topic}', " \
-    #               f"{httpe.response.status_code}, {httpe.request.url}"
-    #     click.secho(err=True, message=err_msg, fg='red')
-    #     os.sys.exit(1)
     local_path = repo.get_repo(git_repo)
     with open(f"{local_path}/{topic}.md", "r") as f:
         text = f.read()
@@ -54,6 +44,7 @@ def get_hint_text(git_repo, topic):
 
 def edit_hint(topic):
     subprocess.run(['vim', f"{repo.LOCAL_PATH}/{topic}.md"])
+    repo.push_all_changes()
 
 
 @click.command()
@@ -65,8 +56,12 @@ def cli(edit, topic, subsections):
     conf = get_config()
     if edit:
         edit_hint(topic=topic)
-        repo.push_all_changes()
     else:
-        hint_text = get_hint_text(git_repo=conf['hint']['repo'], topic=topic)
+        try:
+            hint_text = get_hint_text(git_repo=conf['hint']['repo'], topic=topic)
+        except FileNotFoundError:
+            fnf_msg = f'Hints for topic "{topic}" not found, run `hint --edit {topic}` to create it.'
+            click.secho(err=True, message=fnf_msg, fg='red')
+            return
         display_text = get_display_text(hint_text, subsections)
         print_hint_text(display_text)
