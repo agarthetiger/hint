@@ -7,7 +7,8 @@ import click
 
 HOME = str(Path.home())
 CONFIG_FILE = f"{HOME}/.hintrc"
-REPO_PATH = f"{HOME}/.hints.d/"
+REPO_PATH = f"{HOME}/.hints.d/hints"
+# LOCAL_PATH = f'{REPO_PATH}/hints'
 
 
 def create_config():

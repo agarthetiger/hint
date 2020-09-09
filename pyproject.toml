@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hint-cli"
-version = "0.5.0"
-description = "Hint exists to get help on commands from the command line, without switching context or applications."
+version = "0.6.0"
+description = "Get help and examples for commands from the command line, without switching context or applications."
 authors = ["Andrew Garner"]
 license = "MIT"
 readme = "README.md"
@@ -10,7 +10,7 @@ repository = "https://github.com/agarthetiger/hint/"
 documentation = "https://agarthetiger.github.io/hint/"
 keywords = ["cli", "help"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: End Users/Desktop",
     "Operating System :: OS Independent",
