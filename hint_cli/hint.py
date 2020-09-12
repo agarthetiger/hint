@@ -4,7 +4,7 @@ import subprocess
 
 import click
 
-from hint_cli import repo, config
+from hint_cli import config, repo
 from hint_cli.config import get_config
 from hint_cli.format import format_for_stdout
 from markdown import parser
@@ -50,13 +50,33 @@ def edit_hint(topic):
     repo.push_all_changes(config.REPO_PATH)
 
 
+def find_matches_in_file(filename, topic):
+    with open(filename) as file:
+        matches = [line
+                   for line in file.readlines()
+                   if line.find(topic) != -1]
+    return filename, matches
+
+
+def search_for_text_in_hints(topic):
+    msg = ""
+    for file in glob.glob(f"{config.REPO_PATH}/*.md"):
+        filename, matches = find_matches_in_file(file, topic)
+        if len(matches) > 0:
+            msg += f"Matches found in {filename}\n"
+            for match in matches:
+                msg += f"{match}\n"
+    return msg
+
+
 def search_hint(topic):
     msg = ""
-    if not topic_exists(topic):
-        not_exist = f'Hints for topic "{topic}" not found, run `hint --edit ' \
-                    f'{topic}` to create it.'
-        msg += click.style(text=not_exist, fg='red')
-
+    if topic_exists(topic):
+        msg = f'Hint found for `{topic}`.\n'
+    else:
+        msg = f'Hints for topic "{topic}" not found, run `hint --edit ' \
+              f'{topic}` to create it.\n'
+    msg += search_for_text_in_hints(topic)
     return msg
 
 
