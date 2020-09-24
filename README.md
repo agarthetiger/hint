@@ -14,17 +14,78 @@ Recommended installation method is with [pipx](https://pipxproject.github.io/pip
 
 ## Usage
 
-The first time you run `hint <topic>` it will prompt for configuration values for the following:
+The first time you run `hint TOPIC` it will prompt for configuration values for the following:
 
 * Repository for the hint source - Address of the remote git repository to clone containing your hint content. Use the sample repo from GitHub of `git@github.com:agarthetiger/hint-cli-samples.git` to get started. It is expected that you will create your own content and configure your own repo later. The only topic in the example repo is `bash`. Note that while both the ssh and https clone addresses will work to view content, all functionality to add and modify content will require the ssh style repo address. 
 
-Then run `hint <topic>` where topic is the name of a markdown file in the repository root, without the .md file extension.
+Then run `hint TOPIC` where TOPIC is the name of a markdown file in the repository root, without the .md file extension.
+
+eg.
 
 * `hint bash` - Display the formatted contents of https://raw.githubusercontent.com/agarthetiger/hint/trunk/docs/examples/bash.md 
 * `hint bash curl` - Display only the `curl` subsection from the bash.md file. Valid subsections are any level headings in the markdown document. To display only an H4 subsection, just use the H4 heading text as the 2nd argument. 
 * `hint --edit bash` - Edit the file bash.md using vim. This requires vim to be installed, the repo to be cloned using ssh, ssh key based authentication to github.com configured for the current user and no restrictions on pushing to the default branch. After an edit, all changes in the locally cloned repository will be added, committed to the local clone and then pushed to GitHub.  
+* `hint --search pipx` - search for the string pipx as a topic or a string within all topic files. 
 * `hint --help` - Get help
 * `hint --version` - Print the version of hint-cli
+
+## Tab completion for available TOPICs
+
+Tab-completion of TOPICs can be enabled as follows
+
+For Bash, add this to ~/.bashrc:
+
+```bash
+eval "$(_HINT_COMPLETE=source_bash hint)"
+```
+
+For Zsh, add this to ~/.zshrc:
+
+```bash
+eval "$(_HINT_COMPLETE=source_zsh hint)"
+```
+
+For Fish, add this to ~/.config/fish/completions/hint.fish:
+
+```bash
+eval (env _HINT_COMPLETE=source_fish hint)
+```
+
+Open a new shell to enable completion. Or run the eval command directly in your current shell to enable it temporarily. 
+
+The above eval examples will invoke your application every time a shell is started. This may slow down shell startup time significantly.
+
+Alternatively, export the generated completion code as a static script to be executed. You can ship this file with your builds; tools like Git do this. At least Zsh will also cache the results of completion files, but not eval scripts.
+
+For Bash:
+
+```bash
+_HINT_COMPLETE=source_bash hint > hint-complete.sh
+```
+
+For Zsh:
+
+```bash
+_HINT_COMPLETE=source_zsh hint > hint-complete.sh
+```
+
+For Fish:
+
+```bash
+_HINT_COMPLETE=source_zsh hint > hint-complete.sh
+```
+
+In .bashrc or .zshrc, source the script instead of the eval command:
+
+```bash
+. /path/to/hint-complete.sh
+```
+
+For Fish, add the file to the completions directory:
+
+```bash
+_HINT_COMPLETE=source_fish hint > ~/.config/fish/completions/hint-complete.fish
+```
 
 ## Upgrading
 
