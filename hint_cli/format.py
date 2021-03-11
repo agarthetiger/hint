@@ -1,6 +1,8 @@
 import re
 
 import click
+import rich
+
 
 RE_COMMAND = re.compile(r"`(?P<command>.*?)`")
 

@@ -22,7 +22,7 @@ class RepoError(Exception):
         self.message = message
 
 
-def pull_repo(remote_repo, local_path, update=True):
+def pull_repo(remote_repo: str, local_path: str, update: bool = True) -> str:
     """
 
     Args:
