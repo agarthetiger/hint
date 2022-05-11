@@ -31,10 +31,10 @@ def get_toc(doc):
     '''
     The following dict will be returned:
     {
-        'Python': (0, 1),
+        'Python': (0, 13),
         'Lists': (1, 5),
-        'Dicts': (5, 9),
-        'Types if dict': (9, 13),
+        'Dicts': (5, 13),
+        'Types of dict': (9, 13),
     }
     The Values are NamedTuples with 'start' and 'end' respectively.
     If the returned dict is stored in toc, access the end index of

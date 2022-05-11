@@ -4,7 +4,7 @@ Hint exists to get help on commands from the command line, without switching con
 
 ## Project status
 
-This is currently a POC project I'm using to see what I find useful and how I want the project to develop. For all intents and purposes this tool is completely unsupported. I make no guarantees about backwards compatibility or commitment to responding to issues or PRs. It is a personal project which I'm happy to share, as open source software licensed with the MIT license if you find it useful and/or want any changes I would suggest forking this repo.    
+This product is in nearly daily use by me, and probably me alone. For all intents and purposes this tool is completely unsupported. I make no guarantees about backwards compatibility or commitment to responding to issues or PRs. It is a personal project which I'm happy to share, as open source software licensed with the MIT license if you find it useful and/or want any changes I would suggest forking this repo.
 
 ## Installation
 
@@ -45,12 +45,6 @@ For Zsh, add this to ~/.zshrc:
 eval "$(_HINT_COMPLETE=source_zsh hint)"
 ```
 
-For Fish, add this to ~/.config/fish/completions/hint.fish:
-
-```bash
-eval (env _HINT_COMPLETE=source_fish hint)
-```
-
 Open a new shell to enable completion. Or run the eval command directly in your current shell to enable it temporarily. 
 
 The above eval examples will invoke your application every time a shell is started. This may slow down shell startup time significantly.
@@ -69,29 +63,17 @@ For Zsh:
 _HINT_COMPLETE=source_zsh hint > hint-complete.sh
 ```
 
-For Fish:
-
-```bash
-_HINT_COMPLETE=source_zsh hint > hint-complete.sh
-```
-
 In .bashrc or .zshrc, source the script instead of the eval command:
 
 ```bash
 . /path/to/hint-complete.sh
 ```
 
-For Fish, add the file to the completions directory:
-
-```bash
-_HINT_COMPLETE=source_fish hint > ~/.config/fish/completions/hint-complete.fish
-```
-
 ## Upgrading
 
-This project is still in an alpha state and as such any version bumps may be breaking until 1.0.0 is released. When upgrading versions prior to v1.0.0 I recommend deleting the config file `~/.hintrc` before running the new version, so that the correct config options are set.
+This project is still in a beta state and as such any version bumps may be breaking until 1.0.0 is released. When upgrading versions prior to v1.0.0 I recommend deleting the config file `~/.hintrc` before running the new version, so that the correct config options are set.
 
-From 1.0.0 onwards, releases will be versioned semantically according to [semver.org 2.0.0](https://semver.org/).
+From 1.0.0 onwards, releases will be versioned semantically according to [semver.org 2.0.0](https://semver.org/). Until then, minor version bumps may contain breaking changes.
 
 ## Creating content
 
@@ -107,7 +89,7 @@ Once a repo has been setup and cloned via ssh from GitHub, new pages can be crea
 
 ## Switching hint repositories
 
-Version 0.4.0 changes from using requests to query content directly from GitHub.com to using GitPython to clone the remote repository for the hint content. If you are using hint-cli >=v0.4.0 and want to change the remote repository, update the value for `repo` in `~/.hintrc` and delete the folder `~/.hints.d/hints` before running hint again.   
+Version 0.4.0 changes from using requests to query content directly from GitHub.com to using GitPython to clone the remote repository for the hint content. If you are using hint-cli >=v0.4.0 and want to change the remote repository, update the value for `repo` in `~/.hintrc` and delete the folder `~/.hints.d/hints` and then run hint again.   
 
 ## Alternatives and comparisons
 
@@ -152,3 +134,5 @@ This tool was inspired in multiple ways by Thomas Stringer's post on [My Persona
 ## Backlog of ideas for improvement
 
 Err, it's vast. My ability to dream up cool things I could add to hint easily outstrips my available time to implement them. The ones I think are worthy of at least writing down will end up on the [project page](https://github.com/agarthetiger/hint/projects/1). 
+
+...
