@@ -19,11 +19,9 @@ def print_to_console(hint_text: str):
     for line in hint_text.split('\n'):
         # Skip blank lines
         if line.strip():
-            print(f"style is {style}")
             formatted_line = style.custom_format(line=line.strip())
         else:
             continue
-        print(f"click is {click}")
         click.echo(message=formatted_line)
 
 
@@ -124,7 +122,7 @@ def search_for_text_in_topics(search_term: str):
         with open(topic_file) as file:
             matches = [line
                        for line in file.readlines()
-                       if line.find(search_term) != -1]
+                       if search_term.lower() in line.lower()]
         if len(matches) > 0:
             msg += f"// Matches found in {topic_file}\n"
             for match in matches:
@@ -186,9 +184,21 @@ def cmd_display_topic(topic: str, subsections: tuple, offline: bool):
     if not offline:
         repo.pull(local_path=LOCAL_PATH)
 
-    if not os.path.isfile(f"{LOCAL_PATH}/{topic}.md"):
+    # Create a list of all files and check for a lowercase match, so we can open hint files with a different case for the filename.
+    hints = os.listdir(LOCAL_PATH)
+    for hint in hints:
+        name, extension = os.path.splitext(hint)
+        if name.lower() == topic.lower() and extension == ".md":
+            # Replace the topic with the potentially cased filename to open.
+            topic = name
+            break
+    else:
         click.secho(message=f"Could not find topic file {topic}.md in {LOCAL_PATH}.", err=True, fg="red")
         os.sys.exit(1)
+
+    # if not os.path.isfile(f"{LOCAL_PATH}/{topic}.md"):
+    #     click.secho(message=f"Could not find topic file {topic}.md in {LOCAL_PATH}.", err=True, fg="red")
+    #     os.sys.exit(1)
 
     full_hint_text = get_topic_from_repo(topic=topic)
     display_text = get_display_text(full_hint_text, subsections)
@@ -243,3 +253,4 @@ def cli_entrypoint(edit, offline, search, topic, subsections):
         cmd_search_for_topic(topic=topic, offline=offline)
     else:
         cmd_display_topic(topic=topic, subsections=subsections, offline=offline)
+

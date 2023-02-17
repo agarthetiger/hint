@@ -22,8 +22,7 @@ include = [
     "LICENSE",
 ]
 packages = [
-    { include = "hint_cli" },
-    { include = "markdown" },
+    { include = "hint_cli" }
 ]
 
 [tool.poetry.dependencies]
