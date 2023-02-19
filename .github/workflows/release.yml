@@ -1,0 +1,19 @@
+name: Release workflow
+# Release a new version to pypi.org using Poetry
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+      
+jobs:
+  release-to-pypi-org:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.16
+        with:
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
