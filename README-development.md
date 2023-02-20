@@ -37,10 +37,10 @@ The version number is configured in pyproject.toml and has to be updated manuall
 
 ## Release process
 
-Releasing is done from my local machine. As an infrequently updated hobby project, the time to configure a release pipeline is not top of my priorities.
-
 ### Publish to pypi-testorg
 
+Ensure the version in `pyproject.toml` has been bumped appropriately, then manually trigger the `Release workflow` GitHub Action.
 
 ### Publish to pypi.org
 
+Not yet implemented.
