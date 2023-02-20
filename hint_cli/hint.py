@@ -193,13 +193,13 @@ def cmd_display_topic(topic: str, subsections: tuple, offline: bool):
             topic = name
             break
     else:
-        click.secho(message=f"Could not find topic file {topic}.md in {LOCAL_PATH}.", err=True, fg="red")
-        os.sys.exit(1)
+        click.secho(message=f"Could not find topic file {topic}.md in {LOCAL_PATH}, searching instead...", err=True, fg="red")
+        cmd_search_for_topic(topic=topic, offline=offline)
+        return
 
     # if not os.path.isfile(f"{LOCAL_PATH}/{topic}.md"):
     #     click.secho(message=f"Could not find topic file {topic}.md in {LOCAL_PATH}.", err=True, fg="red")
     #     os.sys.exit(1)
-
     full_hint_text = get_topic_from_repo(topic=topic)
     display_text = get_display_text(full_hint_text, subsections)
     print_to_console(display_text)

@@ -6,7 +6,7 @@ RE_COMMAND = re.compile(r"`(?P<command>.*?)`")
 
 # See available colours listed under click.Style on
 # https://click.palletsprojects.com/en/7.x/api/#utilities
-TITLE_COLOUR = "magenta"
+TITLE_COLOUR = "cyan"
 COMMAND_COLOUR = "blue"
 COMMENT_COLOUR = "green"
 
@@ -20,7 +20,11 @@ def style_command(match):
 
 
 def style_comment(text: str) -> str:
-    return click.style(text, fg=(0, 128, 0))
+    return click.style(text, bold=True, fg=COMMENT_COLOUR)
+
+
+def style_default(text: str) -> str:
+    return RE_COMMAND.sub(style_command, text)
 
 
 def custom_format(line: str) -> str:
@@ -44,6 +48,7 @@ def custom_format(line: str) -> str:
         line = style_comment(line.split(maxsplit=1)[-1])
     else:
         # click.echo("No format to apply")
+        line = style_default(line.split(maxsplit=1)[-1])
         pass
 
     return line
