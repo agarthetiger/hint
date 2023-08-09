@@ -21,9 +21,10 @@ transport.connect()
 key = transport.get_remote_server_key()
 transport.close()
 
-# print(f"Found key for {host} of {key}")
+print(dir(key))
+print(f"Found fingerprint for {key.get_name()} key for {str(host)} of {str(key.get_fingerprint())}")
 hostfile = paramiko.HostKeys(filename=known_hosts)
-if hostfile.check(hostname=host, key=key) is False:
-    print(f"Adding key to hostfile {known_hosts}")
-    hostfile.add(hostname=host, key=key, keytype=key.get_name())
-    hostfile.save(filename=known_hosts)
+# if hostfile.check(hostname=host, key=key) is False:
+#     print(f"Adding key to hostfile {known_hosts}")
+    # hostfile.add(hostname=host, key=key, keytype=key.get_name())
+    # hostfile.save(filename=known_hosts)
