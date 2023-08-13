@@ -3,12 +3,15 @@ from hint_cli.style import custom_format
 
 COMMAND = "* `my command` - Some command description"
 COMMENT = "// My custom comment format."
+NORMAL = "This is just a line of text. Nothing to see here."
 
 
 def test_custom_format_command_removes_asterisk():
     formatted_line = custom_format(COMMAND)
     assert formatted_line.find('*') == -1
 
+def test_custom_format_command_returns_unmodified_line():
+    assert NORMAL == custom_format(NORMAL)
 
 def test_custom_format_command_returns_indented():
     formatted_line = custom_format(COMMAND)

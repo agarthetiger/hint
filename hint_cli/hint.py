@@ -253,4 +253,3 @@ def cli_entrypoint(edit, offline, search, topic, subsections):
         cmd_search_for_topic(topic=topic, offline=offline)
     else:
         cmd_display_topic(topic=topic, subsections=subsections, offline=offline)
-

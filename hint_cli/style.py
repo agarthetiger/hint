@@ -47,8 +47,7 @@ def custom_format(line: str) -> str:
     elif line.startswith('//'):
         line = style_comment(line.split(maxsplit=1)[-1])
     else:
-        # click.echo("No format to apply")
-        line = style_default(line.split(maxsplit=1)[-1])
+        line = style_default(line)
         pass
 
     return line
