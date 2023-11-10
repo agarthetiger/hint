@@ -1,13 +1,14 @@
-[tool.poetry]
+[project]
 name = "hint-cli"
-version = "0.10.0"
+version = "0.11.0"
 description = "Get help and examples for commands from the command line, without switching context or applications."
-authors = ["Andrew Garner"]
-license = "MIT"
+authors = [
+    {email = "1242023+agarthetiger@users.noreply.github.com"},
+    {name = "Andrew Garner"}
+]
 readme = "README.md"
-homepage = "https://github.com/agarthetiger/hint/"
-repository = "https://github.com/agarthetiger/hint/"
-documentation = "https://agarthetiger.github.io/hint/"
+requires-python = ">= 3.11"
+license = {file = "LICENSE"}
 keywords = ["cli", "help"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -18,28 +19,25 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Utilities",
 ]
-include = [
-    "LICENSE",
+
+dependencies = [
+    "gitpython ~= 3.1.7",
+    "pygments ~= 2.7",
+    "paramiko ~= 2.7.2",
+    "click ~= 8.0",
 ]
-packages = [
-    { include = "hint_cli" }
+
+[project.optional-dependencies]
+tests = [
+    "pytest ~= 7.1.2",
+    "pytest-cov ~= 3.0.0",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.11.0"
-gitpython = "^3.1.7"
-pygments = "~=2.7"
-paramiko = "^2.7.2"
-click = "~=8.0"
-
-
-[tool.poetry.dev-dependencies]
-pytest = "^7.1.2"
-pytest-cov = "^3.0.0"
-
-[tool.poetry.scripts]
-hint = 'hint_cli.hint:cli_entrypoint'
+[project.urls]
+homepage = "https://github.com/agarthetiger/hint/"
+repository = "https://github.com/agarthetiger/hint/"
+documentation = "https://agarthetiger.github.io/hint/"
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

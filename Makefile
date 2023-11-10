@@ -1,7 +1,6 @@
 install:
-	poetry shell
-	poetry build
-	poetry install
+	source .venv/bin/activate
+	pip install --editable .
 
 test:
-	poetry run pytest --cov=hint_cli
+	pytest

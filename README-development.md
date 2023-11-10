@@ -1,18 +1,21 @@
 # Development
 
-This project uses [Poetry](https://python-poetry.org/) to manage the project, dependencies, versioning and releasing.
+This project used [Poetry](https://python-poetry.org/) to manage the project, dependencies, versioning and releasing. This was awesome, bbut it meant the tab-completion wasn't working which is not something I want to give up.
+
+Therefore, this project is back to using setuptools to build and package.
 
 Note that even if it wasn't, it's recommended to use setuptools instead of adding shebangs to the file to execute when using click. See https://click.palletsprojects.com/en/8.1.x/setuptools/#setuptools-integration
 
 ## Executing the local code instead of the installed version
 
 ```bash
-pipx install poetry # Install poetry if it's not already present
+# One-time initial setup
+python3 -m venv .venv
 
 # Run all the following commands from the project (root) folder.
-make install # See Makefile for details
+make install # This activates the virtual environment and installs the project in editable mode.
 
-poetry run hint --version # Run the local built version of hint and print the version. Useful to confirm you are running the code and not the version installed onto your development machine.
+hint --version # Run the local built version of hint and print the version. Useful to confirm you are running the code and not the version installed onto your development machine.
 
 # Run the tests
 make test
@@ -22,7 +25,7 @@ make test
 
 See the `test` target in the Makefile.
 
-`poetry run pytest --cov=hint_cli` will run the unit tests for this project with coverage.
+`pytest` will run the unit tests for this project with coverage.
 
 ## Updating dependencies
 
@@ -33,14 +36,14 @@ See the `test` target in the Makefile.
 
 ## Versioning
 
-The version number is configured in pyproject.toml and has to be updated manually prior to any release.
+The version number is configured in `setup.py` and has to be updated manually prior to any release.
 
 ## Release process
 
 ### Publish to pypi-testorg
 
-Ensure the version in `pyproject.toml` has been bumped appropriately, then manually trigger the `Release workflow` GitHub Action.
+Not yet implemented.
 
 ### Publish to pypi.org
 
-Not yet implemented.
+Ensure the version in `setup.py` has been bumped appropriately, then manually trigger the `Release workflow` GitHub Action. This needs updating as it's configured for poetry still.

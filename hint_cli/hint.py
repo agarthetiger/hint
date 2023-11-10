@@ -1,10 +1,15 @@
 import glob
 import os
 import logging
+import re
 import subprocess
 from pathlib import Path
 
 import click
+
+from pygments import highlight
+from pygments import lexers
+from pygments.formatters import Terminal256Formatter
 
 from hint_cli import repo, parser, style
 
@@ -16,13 +21,30 @@ LOCAL_PATH = f"{HOME}/.hints.d/hints"
 
 
 def print_to_console(hint_text: str):
+    formatted_lines = ""
+    code_block_lines = ""
+    in_code_block = False
+    code_lang = ""
+
     for line in hint_text.split('\n'):
-        # Skip blank lines
-        if line.strip():
-            formatted_line = style.custom_format(line=line.strip())
+        if line.strip().startswith('```') or in_code_block:
+            match = re.findall(r'```(\w+)', line.strip())
+            if match:
+                # First line of code block
+                in_code_block = True
+                code_lang = match[0]
+            elif line.strip().startswith('```'):
+                # Last line of code block
+                in_code_block = False
+                click.echo(message=highlight(code=code_block_lines,
+                    lexer=lexers.get_lexer_by_name(code_lang),
+                    formatter=Terminal256Formatter(style="monokai")))
+            else:
+                code_block_lines += line + '\n'
+        elif line.strip():
+            click.echo(message=style.custom_format(line=line.strip()))
         else:
             continue
-        click.echo(message=formatted_line)
 
 
 def get_section(hint_text: str, section: str):
