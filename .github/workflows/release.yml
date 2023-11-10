@@ -1,17 +1,23 @@
 name: Release workflow
-# Release a new version to pypi.org using Poetry
+# Release a new version to pypi.org using setuptools
+# See https://github.com/marketplace/actions/pypi-publish
 
 on:
   workflow_dispatch:
 
 jobs:
-  release-to-pypi-org:
+  pypi-publish:
+    name: Upload release to PyPI
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: pypi
+      url: https://pypi.org/p/<your-pypi-project-name>
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
-      - uses: actions/checkout@v3
+    # retrieve your distributions here
 
-      - name: Build and publish to pypi
-        uses: JRubics/poetry-publish@v1.16
-        with:
-          pypi_token: ${{ secrets.PYPI_TOKEN }}
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        print-hash: true
