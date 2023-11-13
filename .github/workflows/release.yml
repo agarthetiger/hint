@@ -1,7 +1,4 @@
-name: Release workflow
-
-# Release a new version to pypi.org using setuptools
-# See https://github.com/marketplace/actions/pypi-publish
+name: Build and publish to pypi repo
 
 on:
   workflow_call:
@@ -10,6 +7,15 @@ on:
         description: "GitHub Environment name to release to. Valid options are 'test' or 'production'."
         required: true
         type: string
+      pypi_url:
+        description: "URL to publish to. ie https://test.pypi.org/legacy/ or "
+        required: true
+        type: string
+      python_version:
+        description: "Python version to build with"
+        required: false
+        type: string
+        default: "3.11"
 
 jobs:
   pypi-publish:
@@ -19,9 +25,22 @@ jobs:
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
-    # retrieve your distributions here
+    - name: Checkout the code
+      uses: actions/checkout@v4
+
+    - name: Setup Python versions
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python_version }}
+
+    - name: Run the tests using the test target in the Makefile
+      run: |
+        pip3 install .
+        pip3 install ."[tests]"
+        python3 -m build
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
+        repository-url: ${{ inputs.pypi_url }}
         print-hash: true
