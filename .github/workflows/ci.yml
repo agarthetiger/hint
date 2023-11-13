@@ -30,13 +30,10 @@ jobs:
           pytest
 
   build-publish-test:
-    runs-on: ubuntu-latest
-    environment: test
-    steps:
-    - uses: ./.github/workflows/release.yml
-      with:
-        environment: "test"
-        pypi_url: "https://test.pypi.org/legacy/"
+    uses: ./.github/workflows/release.yml
+    with:
+      environment: "test"
+      pypi_url: "https://test.pypi.org/legacy/"
 
   # deploy-and-test:
   #   strategy:
