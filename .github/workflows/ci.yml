@@ -23,7 +23,6 @@ jobs:
 
       - name: Run the tests using the test target in the Makefile
         run: |
-          make setup
           make install
           make test
 
