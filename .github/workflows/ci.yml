@@ -23,8 +23,12 @@ jobs:
 
       - name: Run the tests using the test target in the Makefile
         run: |
-          make install
-          make test
+          python3 -m venv .venv
+          ls -al
+          source .venv/bin/activate
+          pip3 install --editable .
+          pip3 install ."[tests]"
+          pytest
 
 # release-to-qa
 # Manual release
