@@ -1,17 +1,21 @@
 name: Release workflow
+
 # Release a new version to pypi.org using setuptools
 # See https://github.com/marketplace/actions/pypi-publish
 
 on:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      environment:
+        description: "GitHub Environment name to release to. Valid options are 'test' or 'production'."
+        required: true
+        type: string
 
 jobs:
   pypi-publish:
     name: Upload release to PyPI
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/<your-pypi-project-name>
+    environment: ${{ inputs.environment }}
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:

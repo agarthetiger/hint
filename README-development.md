@@ -9,11 +9,13 @@ Note that even if it wasn't, it's recommended to use setuptools instead of addin
 ## Executing the local code instead of the installed version
 
 ```bash
-# One-time initial setup
-python3 -m venv .venv
-
 # Run all the following commands from the project (root) folder.
-make install # This activates the virtual environment and installs the project in editable mode.
+
+# One-time initial setup
+make setup
+
+# This activates the virtual environment, installs the project in editable mode and all dev dependencies.
+make install
 
 hint --version # Run the local built version of hint and print the version. Useful to confirm you are running the code and not the version installed onto your development machine.
 
@@ -23,16 +25,7 @@ make test
 
 ## Testing
 
-See the `test` target in the Makefile.
-
-`pytest` will run the unit tests for this project with coverage.
-
-## Updating dependencies
-
-`poetry show --latest` shows the currently configured dependencies plus whether there are later versions available.
-`poetry update` will update all dependencies to the latest version possible based on the version constraints in pyproject.toml.
-`poetry add click@~8.0.0` will add or update click to use v8.0.0
-`poetry add click@latest` will update click to the latest available version. Note you need to be explicit about adding `--dev` to add or update dev dependencies.
+`make test` will run the unit tests for this project with coverage.
 
 ## Versioning
 

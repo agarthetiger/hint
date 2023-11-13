@@ -21,6 +21,24 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-
       - name: Run the tests using the test target in the Makefile
-        run: make test
+        run: |
+          make setup
+          make install
+          make test
+
+# release-to-qa
+# Manual release
+# Check for version bump?
+# Build distribution
+# push to test.pypi.org
+# Install from test.pypi.org
+# Validate package works somehow
+
+# release-to-prod
+# Manual release
+# Check for version bump?
+# Build distribution
+# push to test.pypi.org
+# Install from test.pypi.org
+# Validate package works somehow
