@@ -37,6 +37,7 @@ jobs:
       pypi_url: "https://test.pypi.org/legacy/"
 
   deploy-and-test:
+    needs: [build-publish-test]
     strategy:
       fail-fast: false
       matrix:
