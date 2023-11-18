@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       pypi_url:
-        description: "URL to publish to. ie https://test.pypi.org/legacy/ or "
+        description: "URL to publish to. ie https://test.pypi.org/legacy/ or https://pypi.org/p/<your-pypi-project-name>"
         required: true
         type: string
       python_version:

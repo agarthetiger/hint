@@ -18,9 +18,13 @@ conf = None
 HOME = str(Path.home())
 CONFIG_FILE = f"{HOME}/.hintrc"
 LOCAL_PATH = f"{HOME}/.hints.d/hints"
+# See https://pygments.org/styles/ for available styles
+CODE_STYLE = "native"
 
 
 def print_to_console(hint_text: str):
+    global CODE_STYLE
+
     formatted_lines = ""
     code_block_lines = ""
     in_code_block = False
@@ -38,7 +42,7 @@ def print_to_console(hint_text: str):
                 in_code_block = False
                 click.echo(message=highlight(code=code_block_lines,
                     lexer=lexers.get_lexer_by_name(code_lang),
-                    formatter=Terminal256Formatter(style="monokai")))
+                    formatter=Terminal256Formatter(style=CODE_STYLE)))
             else:
                 code_block_lines += line + '\n'
         elif line.strip():

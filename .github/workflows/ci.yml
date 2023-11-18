@@ -31,40 +31,38 @@ jobs:
 
   build-publish-test:
     uses: ./.github/workflows/release.yml
+    needs: [build-and-test]
     with:
       environment: "test"
       pypi_url: "https://test.pypi.org/legacy/"
 
-  # deploy-and-test:
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       python-version: ["3.9", "3.11"]
-  #       os: [ubuntu-latest, macos-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - name: Setup Python versions
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
+  deploy-and-test:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11"]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Setup Python versions
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-  #     - name: Run the tests using the test target in the Makefile
-  #       run: |
-  #         pip3 install hint-cli (from test pypi)
+      - name: Install from test.pypi.org
+        run: |
+          python3 -m pip install \
+          --index-url https://test.pypi.org/simple/ \
+          --extra-index-url https://pypi.org/simple/ \
+          hint-cli
 
+      - name: Test install of hint-cli
+        run: |
+          hint --version
 
-# release-to-qa
-# Manual release
-# Check for version bump?
-# Build distribution
-# push to test.pypi.org
-# Install from test.pypi.org
-# Validate package works somehow
-
-# release-to-prod
-# Manual release
-# Check for version bump?
-# Build distribution
-# push to test.pypi.org
-# Install from test.pypi.org
-# Validate package works somehow
+  build-and-release:
+    uses: ./.github/workflows/release.yml
+    needs: [deploy-and-test]
+    with:
+      environment: "production"
+      pypi_url: "https://pypi.org/p/hint-cli"
