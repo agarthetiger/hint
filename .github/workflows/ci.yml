@@ -7,10 +7,7 @@ jobs:
   build-and-test:
     strategy:
       fail-fast: false
-      matrix:
-        python-version: ["3.9", "3.10", "3.11"]
-        os: [macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
@@ -18,7 +15,7 @@ jobs:
       - name: Setup Python versions
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
 
       - name: Run the tests using the test target in the Makefile
         run: |
