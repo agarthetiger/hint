@@ -22,12 +22,8 @@ jobs:
 
       - name: Run the tests using the test target in the Makefile
         run: |
-          python3 -m venv .venv
-          ls -al
-          source .venv/bin/activate
-          pip3 install --editable .
-          pip3 install ."[tests]"
-          pytest
+          make install
+          make test
 
   build-publish-test:
     uses: ./.github/workflows/release.yml
@@ -63,7 +59,7 @@ jobs:
 
   build-and-release:
     uses: ./.github/workflows/release.yml
-    needs: [deploy-and-test]
+    needs: [build-and-test]
     with:
       environment: "production"
       pypi_url: "https://pypi.org/p/hint-cli"

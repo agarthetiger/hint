@@ -33,10 +33,9 @@ jobs:
       with:
         python-version: ${{ inputs.python_version }}
 
-    - name: Run the tests using the test target in the Makefile
+    - name: Build the package
       run: |
         pip3 install .
-        pip3 install ."[tests]"
         python3 -m build
 
     - name: Publish package distributions to PyPI

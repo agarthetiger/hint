@@ -1,12 +1,24 @@
+.ONESHELL:
+
+.PHONY: install
 install:
-	python3 -m venv .venv
-	source .venv/bin/activate
+	$(info $(SHELL))
+	pwd
+	[ -d ".venv" ] && echo ".venv dir exists" || python3 -m venv ./.venv
+	. ./.venv/bin/activate
 	pip install --editable .
 	pip install ."[tests]"
 
+.PHONY: test
 test:
 	pytest
 
+.PHONY: build
 build:
-	# Doesn't work from make
 	python3 -m build
+
+.PHONY: clean
+clean:
+	rm -rf ./.venv
+	rm -rf ./dist
+	rm -rf ./hint*.egg-info
