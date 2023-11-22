@@ -20,7 +20,7 @@ on:
 jobs:
   pypi-publish:
     name: Upload release to PyPI
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
@@ -35,8 +35,7 @@ jobs:
 
     - name: Build the package
       run: |
-        make install
-        make build
+        make release
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
