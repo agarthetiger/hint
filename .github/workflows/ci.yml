@@ -63,4 +63,4 @@ jobs:
     needs: [build-and-test]
     with:
       environment: "production"
-      pypi_url: "https://pypi.org/p/hint-cli/"
+      pypi_url: "https://upload.pypi.org/legacy/"
