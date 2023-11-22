@@ -11,11 +11,11 @@ install:
 
 .PHONY: release
 release:
-	$(info $(SHELL))
-	pwd
 	[ -d ".venv" ] && echo ".venv dir exists" || python3 -m venv --upgrade-deps ./.venv
 	source ./.venv/bin/activate
 	pip install .
+	which python3
+	echo $PATH
 	python3 -m build
 
 .PHONY: test
