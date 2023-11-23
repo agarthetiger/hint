@@ -8,11 +8,12 @@ install:
 	. ./.venv/bin/activate
 	pip install --editable .
 	pip install ."[tests]"
+	pip install ."[build]"
 
 .PHONY: release
 release:
-	pip3 install .
-	build
+	pip3 install ."[build]"
+	python3 -m build
 
 .PHONY: test
 test:

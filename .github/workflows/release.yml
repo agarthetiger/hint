@@ -35,8 +35,7 @@ jobs:
 
     - name: Build the package
       run: |
-        pip3 install ."[tests]"
-        python3 -m build
+        make release
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
